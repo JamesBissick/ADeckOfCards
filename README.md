@@ -11,3 +11,8 @@ A coding challenge in Python
   * Created list of playing cards suits
   * App shuffles the deck, then pick 5 cards out of it
   * Display colors accordingly to the suit
+
+
+## License
+
+  [MIT](LICENSE)
