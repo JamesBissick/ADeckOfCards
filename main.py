@@ -1,5 +1,6 @@
 import turtle
 import time
+import random
 
 window = turtle.Screen()
 window.bgcolor('black')
@@ -69,8 +70,13 @@ class Deck():
                 card = Card(name, suit)
                 self.cards.append(card)
 
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+
 
 deck = Deck()
+deck.shuffle()
 for card in deck.cards:
     card.print_card()
 
