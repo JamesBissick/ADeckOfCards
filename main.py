@@ -14,36 +14,64 @@ time.sleep(3)
 
 # Create classes
 class Card():
-    def __init__(self, name, suite):
+    def __init__(self, name, suit):
         self.name = name
-        self.suite = suite
+        self.suit = suit
         # diamonds(♦), clubs(♣), hearts(♥) and spades(♠)
         self.symbols = {'D': '♦', 'C': '♣', 'H': '♥', 'S': '♠', }
 
     def print_card(self):
-        if self.suite == 'S':
+        if self.suit == 'S':
             symbol = '♠'
-        print(f"{self.name}{self.symbols[self.suite]}")
+        print(f"{self.name}{self.symbols[self.suit]}")
 
     def render(self, x, y, pen):
         # Draw the border
         pen.penup()
         pen.goto(x, y)
-        pen.color('white')
+        pen.color('blue')
         pen.goto(x - 50, y + 75)
+        pen.begin_fill()
         pen.pendown()
         pen.goto(x + 50, y + 75)
         pen.goto(x + 50, y - 75)
         pen.goto(x - 50, y - 75)
         pen.goto(x - 50, y + 75)
+        pen.end_fill()
         pen.penup()
 
-        # Draw suites in the middle
-        pen.goto(x-18, y-30)
-        pen.write(self.symbols[self.suite], False, font=('Courrier New', 48, 'normal'))
+        # Draw suits in the middle
+        pen.color('white')
+        pen.goto(x - 18, y - 30)
+        pen.write(self.symbols[self.suit], False, font=('Courrier New', 48, 'normal'))
+
+        # Draw top left
+        pen.goto(x - 39, y + 47)
+        pen.write(self.name, False, font=('Courrier New', 18, 'normal'))
+        pen.goto(x - 40, y + 30)
+        pen.write(self.symbols[self.suit], False, font=('Courrier New', 18, 'normal'))
+
+        # Draw bottom right
+        pen.goto(x + 31, y - 53)
+        pen.write(self.name, False, font=('Courrier New', 18, 'normal'))
+        pen.goto(x + 29, y - 71)
+        pen.write(self.symbols[self.suit], False, font=('Courrier New', 18, 'normal'))
 
 
-card = Card('A', 'S')
-card.render(0, 0, pen)
+class Deck():
+    def __init__(self):
+        self.cards = []
+        names = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
+        suits = ('D', 'C', 'H', 'S')
+
+        for name in names:
+            for suit in suits:
+                card = Card(name, suit)
+                self.cards.append(card)
+
+
+deck = Deck()
+for card in deck.cards:
+    card.print_card()
 
 window.mainloop()
